@@ -1,13 +1,13 @@
 resource "aws_security_group" "lambda" {
   name   = "animal-crossing-lambda"
-  vpc_id = aws_vpc.this.id
+  vpc_id = data.terraform_remote_state.vpc.outputs.aws_vpc_id
 
   egress {
+    cidr_blocks = ["0.0.0.0/0"]
     description = "Lambda"
     from_port   = 0
-    to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    to_port     = 0
   }
 
   tags = {
@@ -18,7 +18,7 @@ resource "aws_security_group" "lambda" {
 
 resource "aws_security_group" "rds" {
   name   = "animal-crossing-rds"
-  vpc_id = aws_vpc.this.id
+  vpc_id = data.terraform_remote_state.vpc.outputs.aws_vpc_id
 
   ingress {
     description     = "PostgreSQL"
