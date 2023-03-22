@@ -1,3 +1,9 @@
+resource "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
 resource "aws_db_instance" "main" {
   allocated_storage            = 10
   apply_immediately            = true
@@ -12,7 +18,7 @@ resource "aws_db_instance" "main" {
   instance_class               = "db.t3.micro"
   monitoring_interval          = 0
   parameter_group_name         = "default.mysql5.7"
-  password                     = "exampleexample"
+  password                     = random_password.password.result
   performance_insights_enabled = false
   publicly_accessible          = false
   skip_final_snapshot          = true

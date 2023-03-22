@@ -1,8 +1,8 @@
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
-    bucket = "385739365063"
+    bucket = var.account
     key    = "AnimalCrossing/VPC/terraform.tfstate"
-    region = "us-east-1"
+    region = var.region
   }
 }
