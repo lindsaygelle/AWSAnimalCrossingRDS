@@ -1,28 +1,28 @@
-/*
 resource "aws_db_instance" "main" {
   allocated_storage            = 10
   apply_immediately            = true
   auto_minor_version_upgrade   = true
   copy_tags_to_snapshot        = false
-  db_name                      = "postgres"
+  db_name                      = "animalcrossing"
   db_subnet_group_name         = aws_db_subnet_group.main.name
   delete_automated_backups     = true
-  engine                       = "postgres"
-  engine_version               = "15.2"
+  engine                       = "mysql"
+  engine_version               = "5.7"
   identifier                   = "animal-crossing"
   instance_class               = "db.t3.micro"
-  license_model                = "postgresql-license"
   monitoring_interval          = 0
-  password                     = "postgres"
+  parameter_group_name         = "default.mysql5.7"
+  password                     = "exampleexample"
   performance_insights_enabled = false
-  port                         = 5432
   publicly_accessible          = false
   skip_final_snapshot          = true
-  username                     = "postgres"
-  vpc_security_group_ids       = [aws_security_group.rds.id]
+  username                     = "example"
+  vpc_security_group_ids       = [data.terraform_remote_state.vpc.outputs.aws_security_group_rds_id]
 
   tags = {
-    "region" = var.region
+    "application" = "animal-crossing"
+    "environment" = terraform.workspace
+    "region"      = var.region
+    "Name"        = "animal-crossing"
   }
 }
-*/
